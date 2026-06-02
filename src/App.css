@@ -1,1 +1,236 @@
 @import "tailwindcss";
+
+@theme {
+    --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+    --font-sketch: "Trebuchet MS", "Comic Sans MS", ui-sans-serif, system-ui, sans-serif;
+
+    --color-paper-bg: hsl(var(--paper-bg));
+    --color-paper-card: hsl(var(--paper-card));
+    --color-paper-card-hover: hsl(var(--paper-card-hover));
+    --color-pencil-dark: hsl(var(--pencil-dark));
+    --color-pencil-medium: hsl(var(--pencil-medium));
+    --color-pencil-light: hsl(var(--pencil-light));
+    --color-accent-blue: hsl(var(--accent-blue));
+    --color-accent-gold: hsl(var(--accent-gold));
+    --color-accent-green: hsl(var(--accent-green));
+    --color-accent-orange: hsl(var(--accent-orange));
+    --color-accent-purple: hsl(var(--accent-purple));
+    --color-accent-red: hsl(var(--accent-red));
+    --color-accent-teal: hsl(var(--accent-teal));
+    --color-accent-pink: hsl(var(--accent-pink));
+
+    --shadow-sketch: 2px 3px 0 hsl(var(--pencil-dark) / 0.18);
+    --shadow-soft-sketch: 0 18px 45px hsl(var(--pencil-dark) / 0.12);
+}
+
+:root {
+    font-family: var(--font-sans);
+    color: hsl(var(--pencil-dark));
+    background: hsl(var(--paper-bg));
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --background: 40 30% 95%;
+    --foreground: 0 0% 15%;
+    --paper-bg: 42 35% 94%;
+    --paper-card: 42 35% 94%;
+    --paper-card-hover: 40 25% 90%;
+    --paper-lines: 210 30% 82%;
+    --pencil-dark: 0 0% 18%;
+    --pencil-medium: 0 0% 25%;
+    --pencil-light: 0 0% 55%;
+    --accent-blue: 210 70% 45%;
+    --accent-gold: 45 80% 42%;
+    --accent-green: 140 55% 38%;
+    --accent-orange: 30 80% 45%;
+    --accent-purple: 270 60% 48%;
+    --accent-red: 0 70% 45%;
+    --accent-teal: 180 55% 38%;
+    --accent-pink: 330 65% 48%;
+}
+
+.dark {
+    --background: 225 30% 6%;
+    --foreground: 210 40% 92%;
+    --paper-bg: 225 30% 7%;
+    --paper-card: 225 28% 10%;
+    --paper-card-hover: 225 26% 14%;
+    --paper-lines: 220 25% 22%;
+    --pencil-dark: 210 35% 90%;
+    --pencil-medium: 210 30% 78%;
+    --pencil-light: 215 15% 50%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    background: hsl(var(--paper-bg));
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    cursor: crosshair;
+    background:
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 27px,
+            hsl(var(--paper-lines) / 0.2) 27px,
+            hsl(var(--paper-lines) / 0.2) 28px),
+        linear-gradient(90deg,
+            transparent 60px,
+            hsl(0 50% 75% / 0.15) 60px,
+            hsl(0 50% 75% / 0.15) 61.5px,
+            transparent 61.5px),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E"),
+        hsl(var(--paper-bg));
+    color: hsl(var(--pencil-dark));
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.sketch-text {
+    font-family: var(--font-sketch);
+    color: hsl(var(--pencil-dark));
+}
+
+.sketch-heading {
+    color: hsl(var(--pencil-dark));
+    font-family: var(--font-sketch);
+    text-decoration: underline;
+    text-decoration-color: hsl(var(--pencil-dark) / 0.4);
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 5px;
+}
+
+.paper-surface {
+    background-color: hsl(var(--paper-card));
+}
+
+.paper-bg {
+    background-color: hsl(var(--paper-bg));
+    background-image:
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 27px,
+            hsl(var(--paper-lines) / 0.2) 27px,
+            hsl(var(--paper-lines) / 0.2) 28px),
+        linear-gradient(90deg,
+            transparent 60px,
+            hsl(0 50% 75% / 0.15) 60px,
+            hsl(0 50% 75% / 0.15) 61.5px,
+            transparent 61.5px),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+.colorful-mode [data-section-color="blue"] {
+    color: hsl(var(--accent-blue));
+}
+
+.colorful-mode [data-section-color="gold"] {
+    color: hsl(var(--accent-gold));
+}
+
+.colorful-mode [data-section-color="green"] {
+    color: hsl(var(--accent-green));
+}
+
+.colorful-mode [data-section-color="orange"] {
+    color: hsl(var(--accent-orange));
+}
+
+.colorful-mode [data-section-color="purple"] {
+    color: hsl(var(--accent-purple));
+}
+
+.colorful-mode [data-section-color="red"] {
+    color: hsl(var(--accent-red));
+}
+
+.colorful-mode [data-section-color="teal"] {
+    color: hsl(var(--accent-teal));
+}
+
+.colorful-mode [data-section-color="pink"] {
+    color: hsl(var(--accent-pink));
+}
+
+.colorful-mode [data-color="red"] {
+    stroke: hsl(0 70% 50%) !important;
+}
+
+.colorful-mode [data-color="blue"] {
+    stroke: hsl(210 70% 50%) !important;
+}
+
+.colorful-mode [data-color="green"] {
+    stroke: hsl(140 55% 42%) !important;
+}
+
+.colorful-mode [data-color="orange"] {
+    stroke: hsl(30 80% 52%) !important;
+}
+
+.colorful-mode [data-color="purple"] {
+    stroke: hsl(270 60% 55%) !important;
+}
+
+.colorful-mode [data-color="teal"] {
+    stroke: hsl(180 55% 42%) !important;
+}
+
+.colorful-mode [data-color="pink"] {
+    stroke: hsl(330 65% 55%) !important;
+}
+
+.colorful-mode [data-color="gold"] {
+    stroke: hsl(45 80% 48%) !important;
+}
+
+.colorful-mode [data-fill-color="red"] {
+    fill: hsl(0 70% 50%) !important;
+}
+
+.colorful-mode [data-fill-color="blue"] {
+    fill: hsl(210 70% 50%) !important;
+}
+
+.colorful-mode [data-fill-color="green"] {
+    fill: hsl(140 55% 42%) !important;
+}
+
+.colorful-mode [data-fill-color="purple"] {
+    fill: hsl(270 60% 55%) !important;
+}
+
+.colorful-mode [data-fill-color="pink"] {
+    fill: hsl(330 65% 55%) !important;
+}
+
+.colorful-mode [data-fill-color="teal"] {
+    fill: hsl(180 55% 42%) !important;
+}
+
+.colorful-mode [data-fill-color="gold"] {
+    fill: hsl(45 80% 48%) !important;
+}
+
+.colorful-mode [data-fill-color="orange"] {
+    fill: hsl(30 80% 52%) !important;
+}
