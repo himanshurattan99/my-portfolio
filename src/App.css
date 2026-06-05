@@ -2,7 +2,7 @@
 
 @theme {
     --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
-    --font-sketch: "Trebuchet MS", "Comic Sans MS", ui-sans-serif, system-ui, sans-serif;
+    --font-sketch: Caveat, "Patrick Hand", "Comic Sans MS", cursive;
 
     --color-paper-bg: hsl(var(--paper-bg));
     --color-paper-card: hsl(var(--paper-card));
@@ -19,7 +19,7 @@
     --color-accent-teal: hsl(var(--accent-teal));
     --color-accent-pink: hsl(var(--accent-pink));
 
-    --shadow-sketch: 2px 3px 0 hsl(var(--pencil-dark) / 0.18);
+    --shadow-sketch: 0 12px 24px hsl(var(--pencil-dark) / 0.08);
     --shadow-soft-sketch: 0 18px 45px hsl(var(--pencil-dark) / 0.12);
 }
 
@@ -117,6 +117,21 @@ button {
     text-decoration-style: wavy;
     text-decoration-thickness: 1.5px;
     text-underline-offset: 5px;
+    text-underline-offset: 6px;
+}
+
+.sketch-chip {
+    display: inline-block;
+    color: hsl(var(--pencil-dark));
+    border: 1.5px solid hsl(var(--pencil-dark));
+    border-radius: 12% 88% 18% 82% / 88% 12% 88% 12%;
+    background-color: transparent;
+    line-height: 1.35;
+    transition: transform 0.2s ease;
+}
+
+.sketch-chip:hover {
+    transform: rotate(-2deg) scale(1.05);
 }
 
 .paper-surface {
