@@ -49,6 +49,14 @@
     --accent-red: 0 70% 45%;
     --accent-teal: 180 55% 38%;
     --accent-pink: 330 65% 48%;
+    --colorful-red: 0 70% 50%;
+    --colorful-blue: 210 70% 50%;
+    --colorful-green: 140 55% 42%;
+    --colorful-orange: 30 80% 52%;
+    --colorful-purple: 270 60% 55%;
+    --colorful-teal: 180 55% 42%;
+    --colorful-pink: 330 65% 55%;
+    --colorful-gold: 45 80% 48%;
 }
 
 .dark {
@@ -77,19 +85,7 @@ body {
     min-height: 100vh;
     margin: 0;
     cursor: crosshair;
-    background:
-        repeating-linear-gradient(0deg,
-            transparent,
-            transparent 27px,
-            hsl(var(--paper-lines) / 0.2) 27px,
-            hsl(var(--paper-lines) / 0.2) 28px),
-        linear-gradient(90deg,
-            transparent 60px,
-            hsl(0 50% 75% / 0.15) 60px,
-            hsl(0 50% 75% / 0.15) 61.5px,
-            transparent 61.5px),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E"),
-        hsl(var(--paper-bg));
+    background: hsl(var(--paper-bg));
     color: hsl(var(--pencil-dark));
 }
 
@@ -116,7 +112,6 @@ button {
     text-decoration-color: hsl(var(--pencil-dark) / 0.4);
     text-decoration-style: wavy;
     text-decoration-thickness: 1.5px;
-    text-underline-offset: 5px;
     text-underline-offset: 6px;
 }
 
@@ -187,65 +182,65 @@ button {
 }
 
 .colorful-mode [data-color="red"] {
-    stroke: hsl(0 70% 50%) !important;
+    stroke: hsl(var(--colorful-red)) !important;
 }
 
 .colorful-mode [data-color="blue"] {
-    stroke: hsl(210 70% 50%) !important;
+    stroke: hsl(var(--colorful-blue)) !important;
 }
 
 .colorful-mode [data-color="green"] {
-    stroke: hsl(140 55% 42%) !important;
+    stroke: hsl(var(--colorful-green)) !important;
 }
 
 .colorful-mode [data-color="orange"] {
-    stroke: hsl(30 80% 52%) !important;
+    stroke: hsl(var(--colorful-orange)) !important;
 }
 
 .colorful-mode [data-color="purple"] {
-    stroke: hsl(270 60% 55%) !important;
+    stroke: hsl(var(--colorful-purple)) !important;
 }
 
 .colorful-mode [data-color="teal"] {
-    stroke: hsl(180 55% 42%) !important;
+    stroke: hsl(var(--colorful-teal)) !important;
 }
 
 .colorful-mode [data-color="pink"] {
-    stroke: hsl(330 65% 55%) !important;
+    stroke: hsl(var(--colorful-pink)) !important;
 }
 
 .colorful-mode [data-color="gold"] {
-    stroke: hsl(45 80% 48%) !important;
+    stroke: hsl(var(--colorful-gold)) !important;
 }
 
 .colorful-mode [data-fill-color="red"] {
-    fill: hsl(0 70% 50%) !important;
+    fill: hsl(var(--colorful-red)) !important;
 }
 
 .colorful-mode [data-fill-color="blue"] {
-    fill: hsl(210 70% 50%) !important;
+    fill: hsl(var(--colorful-blue)) !important;
 }
 
 .colorful-mode [data-fill-color="green"] {
-    fill: hsl(140 55% 42%) !important;
+    fill: hsl(var(--colorful-green)) !important;
 }
 
 .colorful-mode [data-fill-color="purple"] {
-    fill: hsl(270 60% 55%) !important;
+    fill: hsl(var(--colorful-purple)) !important;
 }
 
 .colorful-mode [data-fill-color="pink"] {
-    fill: hsl(330 65% 55%) !important;
+    fill: hsl(var(--colorful-pink)) !important;
 }
 
 .colorful-mode [data-fill-color="teal"] {
-    fill: hsl(180 55% 42%) !important;
+    fill: hsl(var(--colorful-teal)) !important;
 }
 
 .colorful-mode [data-fill-color="gold"] {
-    fill: hsl(45 80% 48%) !important;
+    fill: hsl(var(--colorful-gold)) !important;
 }
 
 .colorful-mode [data-fill-color="orange"] {
-    fill: hsl(30 80% 52%) !important;
+    fill: hsl(var(--colorful-orange)) !important;
 }
