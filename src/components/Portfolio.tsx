@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   aboutContent,
   contactItems,
@@ -11,6 +12,8 @@ import {
 } from "@/data/portfolio";
 import SketchIcon from "./SketchIcon";
 
+type ViewMode = "portfolio" | "game";
+
 interface SectionFrameProps {
   id: SectionId;
   title: string;
@@ -19,7 +22,7 @@ interface SectionFrameProps {
 }
 
 // Outer paper card used for each main portfolio section.
-const SectionFrame = ({ id, title, color, children }: SectionFrameProps) => (
+export const SectionFrame = ({ id, title, color, children }: SectionFrameProps) => (
   <section
     className="relative mx-auto w-full max-w-240 overflow-hidden px-8 py-10 sm:px-10 md:px-16 md:py-12"
     data-section-color={color}
@@ -54,7 +57,7 @@ const SectionFrame = ({ id, title, color, children }: SectionFrameProps) => (
 );
 
 // Smaller sketch card for repeated items inside a section.
-const SketchBox = ({ children, color }: { children: React.ReactNode; color?: SectionColor }) => (
+export const SketchBox = ({ children, color }: { children: React.ReactNode; color?: SectionColor }) => (
   <div className="relative rounded-sm px-5 py-4">
     <svg className="pointer-events-none absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
       <path
@@ -79,6 +82,7 @@ const AboutSection = () => (
   </div>
 );
 
+// Groups skills by category and renders each item as a sketch chip.
 const SkillsSection = () => (
   <div className="space-y-7">
     {skillGroups.map((group, groupIndex) => (
@@ -104,6 +108,7 @@ const SkillsSection = () => (
   </div>
 );
 
+// Project cards reuse the same small sketch box treatment.
 const ProjectsSection = () => (
   <div className="grid gap-5 md:grid-cols-2">
     {projects.map((project, index) => {
@@ -126,6 +131,7 @@ const ProjectsSection = () => (
   </div>
 );
 
+// Experience entries stay stacked for easy scanning.
 const ExperienceSection = () => (
   <div className="space-y-5">
     {experience.map((item, index) => {
@@ -148,6 +154,7 @@ const ExperienceSection = () => (
   </div>
 );
 
+// Education currently has one compact credential card.
 const EducationSection = () => (
   <div className="space-y-5">
     {education.map((item) => (
@@ -167,6 +174,7 @@ const EducationSection = () => (
   </div>
 );
 
+// Contact methods render as compact linked-style chips for now.
 const ContactSection = () => (
   <div className="flex flex-wrap gap-4">
     {contactItems.map((item, index) => {
@@ -183,7 +191,7 @@ const ContactSection = () => (
   </div>
 );
 
-// Maps section ids to their current static content views.
+// Keeps route/detail rendering aligned with the main section ids.
 const sectionContent: Record<SectionId, React.ReactNode> = {
   about: <AboutSection />,
   skills: <SkillsSection />,
@@ -193,17 +201,78 @@ const sectionContent: Record<SectionId, React.ReactNode> = {
   contact: <ContactSection />,
 };
 
-// Static portfolio mode; interactive/game behavior comes in later steps.
-const Portfolio = () => (
-  <main className="paper-bg sketch-text min-h-screen px-4 pb-16 pt-44 text-pencil-dark sm:px-6">
-    <div className="mx-auto flex max-w-240 flex-col gap-12">
-      {sections.map((section) => (
-        <SectionFrame color={section.color} id={section.id} key={section.id} title={section.title}>
-          {sectionContent[section.id]}
-        </SectionFrame>
-      ))}
+export const SectionContent = ({ id }: { id: SectionId }) => sectionContent[id];
+
+const gamePositions = [
+  "left-[8%] top-[16%]",
+  "left-[42%] top-[9%]",
+  "right-[9%] top-[21%]",
+  "left-[7%] bottom-[18%]",
+  "left-[43%] bottom-[12%]",
+  "right-[11%] bottom-[20%]",
+];
+
+// Compact section card used by the early game-mode layout.
+const GameCard = ({ section, index }: { section: (typeof sections)[number]; index: number }) => (
+  <div
+    className={`absolute ${gamePositions[index]} float-bob flex h-37.5 w-37.5 items-center justify-center`}
+    style={{ animationDelay: `${section.bobDelay}s`, transform: `rotate(${section.rotation}deg)` }}
+  >
+    <div className="relative flex h-full w-full flex-col items-center justify-center gap-2">
+      <svg className="pointer-events-none absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 150 150">
+        <path
+          d="M20 6 Q75 3 130 7 Q147 8 143 22 Q147 75 143 128 Q142 145 130 143 Q75 147 20 143 Q5 142 7 128 Q3 75 7 22 Q6 7 20 6 Z"
+          fill="hsl(var(--paper-card))"
+          stroke="hsl(var(--pencil-dark))"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+          data-color={section.color}
+        />
+      </svg>
+      <div className="relative z-10 flex flex-col items-center gap-2" style={{ transform: `rotate(${-section.rotation}deg)` }}>
+        <SketchIcon color={section.color} name={section.icon} size={36} />
+        <span className="max-w-28 text-center text-lg font-bold leading-tight" data-section-color={section.color}>
+          {section.title}
+        </span>
+      </div>
     </div>
-  </main>
+  </div>
 );
+
+const Portfolio = () => {
+  const [mode, setMode] = useState<ViewMode>("portfolio");
+  const isGame = mode === "game";
+
+  return (
+    <main className={`paper-bg sketch-text min-h-screen text-pencil-dark ${isGame ? "h-screen overflow-hidden" : "px-4 pb-16 pt-44 sm:px-6"}`}>
+      <button
+        className="paper-surface fixed right-5 top-5 z-20 border-2 border-pencil-dark px-4 py-2 text-lg font-bold shadow-sketch"
+        onClick={() => setMode(isGame ? "portfolio" : "game")}
+        type="button"
+      >
+        {isGame ? "Portfolio" : "Game"}
+      </button>
+
+      {/* Player movement and section interactions will build on this layout. */}
+      {isGame ? (
+        <div className="relative h-screen w-full">
+          {sections.map((section, index) => (
+            <GameCard index={index} key={section.id} section={section} />
+          ))}
+        </div>
+      ) : (
+        <div className="mx-auto flex max-w-240 flex-col gap-12">
+          {sections.map((section) => (
+            <SectionFrame color={section.color} id={section.id} title={section.title}>
+              <SectionContent id={section.id} />
+            </SectionFrame>
+          ))}
+        </div>
+      )}
+    </main>
+  );
+};
 
 export default Portfolio;
