@@ -10,6 +10,7 @@ import {
   type SectionColor,
   type SectionId,
 } from "@/data/portfolio";
+import BackgroundDoodles from "./BackgroundDoodles";
 import SketchIcon from "./SketchIcon";
 
 type ViewMode = "portfolio" | "game";
@@ -19,6 +20,7 @@ interface SectionFrameProps {
   title: string;
   color: SectionColor;
   icon?: (typeof sections)[number]["icon"];
+  bobDelay?: number;
   mode?: ViewMode;
   canMeasure?: boolean;
   onContentHeightChange?: (id: SectionId, height: number) => void;
@@ -32,6 +34,7 @@ export const SectionFrame = ({
   title,
   color,
   icon,
+  bobDelay = 0,
   mode = "portfolio",
   canMeasure = false,
   onContentHeightChange,
@@ -69,10 +72,10 @@ export const SectionFrame = ({
 
   return (
     <section
-      className="absolute overflow-hidden px-8 py-10 sm:px-10 md:px-16 md:py-12"
+      className={`absolute overflow-hidden px-8 py-10 sm:px-10 md:px-16 md:py-12 ${mode === "game" ? "float-bob" : ""}`}
       data-section-color={color}
       id={id}
-      style={style}
+      style={{ ...style, animationDelay: `${bobDelay}s` }}
     >
       <svg className="pointer-events-none absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 150 150">
         <defs>
@@ -373,6 +376,10 @@ const Portfolio = () => {
       className="paper-bg sketch-text relative min-h-screen overflow-hidden text-pencil-dark"
       style={{ height: isGame ? "100vh" : portfolioHeight + 80 }}
     >
+      <BackgroundDoodles />
+      <header className="pointer-events-none fixed left-1/2 top-5 z-20 -translate-x-1/2 text-center">
+        <h1 className="sketch-heading text-4xl font-bold sm:text-5xl">My Portfolio</h1>
+      </header>
       <ModeToggle isGame={isGame} onToggle={toggleMode} />
 
       {sections.map((section, index) => {
@@ -380,6 +387,7 @@ const Portfolio = () => {
         return (
           <SectionFrame
             color={section.color}
+            bobDelay={section.bobDelay}
             icon={section.icon}
             id={section.id}
             key={section.id}
